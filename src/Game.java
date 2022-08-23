@@ -20,20 +20,24 @@ public class Game {
         stack1.push(1);
         System.out.println("Начинаем");
 
-
         while ((!stack2.equals(originalStack) && (!stack3.equals(originalStack)))) {
             System.out.println("введите номера кучи 1- № снимаемой, 2- № куда ложить ");
             int original = scanner.nextInt();
             int finite = scanner.nextInt();
+            if ((original < 1) || (finite) < 1 || (original > 3 || (finite) > 3)) {
+                System.out.println("Вы ввели не правильные цифры! Числа должны быть от 1 до 3-х");
+            } else if ((original == 2) && stack2.empty()||(original == 3) && stack3.empty()) {
+                System.out.println(finite + " Куча пуста вы не можете оттуда брать ");
+            } else {
+                int storage = takeOffToHeap(stack1, stack2, stack3, original);
+                addToHeap(stack1, stack2, stack3, finite, storage);
 
-            int storage = takeOffToHeap(stack1, stack2, stack3, original);
-            addToHeap(stack1, stack2, stack3, finite, storage);
-
-            System.out.println(stack1);
-            System.out.println(stack2);
-            System.out.println(stack3);
+                System.out.println(stack1);
+                System.out.println(stack2);
+                System.out.println(stack3);
+            }
         }
-        System.out.println(" Вы закончили игу");
+        System.out.println(" Вы закончили игру");
     }
 
     public static void addToHeap(Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3, int x, int z) {
@@ -50,7 +54,6 @@ public class Game {
     }
 
     public static int takeOffToHeap(Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3, int x) {
-
         switch (x) {
             case 1:
                 return stack1.pop();

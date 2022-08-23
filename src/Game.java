@@ -11,14 +11,15 @@ public class Game {
         Stack<Integer> stack2 = new Stack<>();
         Stack<Integer> stack3 = new Stack<>();
 
-        originalStack.push(3);
-        originalStack.push(2);
-        originalStack.push(1);
-
-        stack1.push(3);
-        stack1.push(2);
-        stack1.push(1);
         System.out.println("Начинаем");
+        System.out.println("Выберите количество колец для игры");
+
+        int numberOfRings = scanner.nextInt();
+
+        for (int i =numberOfRings ; i>=1; i--){
+            originalStack.push(i);
+            stack1.push(i);
+        }
 
         while ((!stack2.equals(originalStack) && (!stack3.equals(originalStack)))) {
             System.out.println("введите номера кучи 1- № снимаемой, 2- № куда ложить ");

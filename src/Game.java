@@ -14,6 +14,7 @@ public class Game {
         System.out.println("Начинаем");
         System.out.println("Выберите количество колец для игры");
 
+        int counter = 0;
         int numberOfRings = scanner.nextInt();
 
         for (int i =numberOfRings ; i>=1; i--){
@@ -23,6 +24,7 @@ public class Game {
 
         while ((!stack2.equals(originalStack) && (!stack3.equals(originalStack)))) {
             System.out.println("введите номера кучи 1- № снимаемой, 2- № куда ложить ");
+
             int original = scanner.nextInt();
             int finite = scanner.nextInt();
             if ((original < 1) || (finite) < 1 || (original > 3 || (finite) > 3)) {
@@ -32,13 +34,14 @@ public class Game {
             } else {
                 int storage = takeOffToHeap(stack1, stack2, stack3, original);
                 addToHeap(stack1, stack2, stack3, finite, storage);
+               counter++;
 
                 System.out.println(stack1);
                 System.out.println(stack2);
                 System.out.println(stack3);
             }
         }
-        System.out.println(" Вы закончили игру");
+        System.out.println(" Вы закончили игру за "+counter+" шагов");
     }
 
     public static void addToHeap(Stack<Integer> stack1, Stack<Integer> stack2, Stack<Integer> stack3, int x, int z) {

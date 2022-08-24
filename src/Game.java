@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -6,10 +8,10 @@ public class Game {
 
         Scanner scanner = new Scanner(System.in);
 
-        Stack<Integer> originalStack = new Stack<>();
-        Stack<Integer> stack1 = new Stack<>();
-        Stack<Integer> stack2 = new Stack<>();
-        Stack<Integer> stack3 = new Stack<>();
+        List<Stack<Integer>> stacks = new ArrayList<>();
+        for (int i = 0; i <= 4; i++) {
+            stacks.add(new Stack<Integer>());
+        }
 
         System.out.println("Начинаем");
         System.out.println("Выберите количество колец для игры");
@@ -19,34 +21,34 @@ public class Game {
         double optNumbOfSteps = Math.pow(2, numberOfRings) - 1;
 
         for (int i = numberOfRings; i >= 1; i--) {
-            originalStack.push(i);
-            stack1.push(i);
+            stacks.get(0).push(i);
+            stacks.get(1).push(i);
         }
 
-        while ((!stack2.equals(originalStack) && (!stack3.equals(originalStack)))) {
+        while ((!stacks.get(2).equals(stacks.get(0)) && (!stacks.get(3).equals(stacks.get(0))))) {
             System.out.println("введите номера кучи 1- № снимаемой, 2- № куда ложить ");
 
             int original = scanner.nextInt();
             int finite = scanner.nextInt();
             if ((original < 1) || (finite) < 1 || (original > 3 || (finite) > 3)) {
                 System.out.println("Вы ввели не правильные цифры! Числа должны быть от 1 до 3-х");
-            } else if ((original == 2) && stack2.empty() || (original == 3) && stack3.empty()) {
+            } else if (original == 1 && stacks.get(1).empty() || original == 2 && stacks.get(2).empty() || original == 3 && stacks.get(3).empty()) {
                 System.out.println(finite + " Куча пуста вы не можете оттуда брать ");
             } else {
-                int storage = takeOffToHeap(stack1, stack2, stack3, original);
-                addToHeap(stack1, stack2, stack3, finite, storage);
+                int storage = takeOffToHeap(stacks.get(1), stacks.get(2), stacks.get(3), original);
+                addToHeap(stacks.get(1), stacks.get(2), stacks.get(3), finite, storage);
                 counter++;
 
-                System.out.println(stack1);
-                System.out.println(stack2);
-                System.out.println(stack3);
+                System.out.println(stacks.get(1));
+                System.out.println(stacks.get(2));
+                System.out.println(stacks.get(3));
             }
         }
-        System.out.println();
+
         if (counter == optNumbOfSteps) {
-            System.out.println(" Вы закончили игру за " + counter + " шагов. Это самое оптимальное решение");
+            System.out.println("Отлично! Вы закончили игру за " + counter + " шагов. Это самое оптимальное решение");
         } else {
-            System.out.println(" Вы закончили игру за " + counter + " шагов и сделали " + (int) (counter - optNumbOfSteps) + " лишних шагов");
+            System.out.println("Вы закончили игру за " + counter + " шагов и сделали " + (int) (counter - optNumbOfSteps) + " лишних шагов");
         }
     }
 

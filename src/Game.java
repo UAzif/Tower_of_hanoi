@@ -30,11 +30,8 @@ public class Game {
 
             int original = scanner.nextInt();
             int finite = scanner.nextInt();
-            if ((original < 1) || (finite) < 1 || (original > 3 || (finite) > 3)) {
-                System.out.println("Вы ввели не правильные цифры! Числа должны быть от 1 до 3-х");
-            } else if (original == 1 && stacks.get(1).empty() || original == 2 && stacks.get(2).empty() || original == 3 && stacks.get(3).empty()) {
-                System.out.println(finite + " Куча пуста вы не можете оттуда брать ");
-            } else {
+
+            if (conditionCheck(original, finite, stacks)) {
                 int storage = takeOffToHeap(stacks.get(1), stacks.get(2), stacks.get(3), original);
                 addToHeap(stacks.get(1), stacks.get(2), stacks.get(3), finite, storage);
                 counter++;
@@ -49,6 +46,18 @@ public class Game {
             System.out.println("Отлично! Вы закончили игру за " + counter + " шагов. Это самое оптимальное решение");
         } else {
             System.out.println("Вы закончили игру за " + counter + " шагов и сделали " + (int) (counter - optNumbOfSteps) + " лишних шагов");
+        }
+    }
+
+    private static boolean conditionCheck(int original, int finite, List<Stack<Integer>> stacks) {
+        if ((original < 1) || (finite) < 1 || (original > 3 || (finite) > 3)) {
+            System.out.println("Вы ввели не правильные цифры! Числа должны быть от 1 до 3-х");
+            return false;
+        } else if (original == 1 && stacks.get(1).empty() || original == 2 && stacks.get(2).empty() || original == 3 && stacks.get(3).empty()) {
+            System.out.println(finite + " Куча пуста вы не можете оттуда брать ");
+            return false;
+        } else {
+            return true;
         }
     }
 

@@ -10,7 +10,7 @@ public class Game {
 
         List<Stack<Integer>> stacks = new ArrayList<>();
         for (int i = 0; i <= 4; i++) {
-            stacks.add(new Stack<Integer>());
+            stacks.add(new Stack<>());
         }
 
         System.out.println("Начинаем");
@@ -55,6 +55,9 @@ public class Game {
             return false;
         } else if (original == 1 && stacks.get(1).empty() || original == 2 && stacks.get(2).empty() || original == 3 && stacks.get(3).empty()) {
             System.out.println(finite + " Куча пуста вы не можете оттуда брать ");
+            return false;
+        } else if (stacks.get(finite).size() != 0 && (stacks.get(original).peek() > stacks.get(finite).peek())) {
+            System.out.println("Вы нарушаете правило игры: большое кольцо ложите на малое кольцо");
             return false;
         } else {
             return true;

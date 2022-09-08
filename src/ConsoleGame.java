@@ -26,7 +26,7 @@ public class ConsoleGame {
 
         }
 
-        System.out.println("Отлично! Вы закончили игру за " + game.getCounter() + " шагов., ");
+        System.out.println("Отлично! Вы закончили игру за " + game.getCounter() + " шагов.");
         int c = game.getCounter() - (int) game.getOptNumbOfSteps();
         if (c == 0) {
             System.out.println(" Это оптимальное количество шагов ");
@@ -70,11 +70,7 @@ public class ConsoleGame {
             int y = stack.elementAt(i) * 2;
             int a = (x - y) / 2;
             for (int j = 0; j < x; j++) {
-                if (j <= a || j >= (a + y + 1)) {
-                    array[i][j] = false;
-                } else {
-                    array[i][j] = true;
-                }
+                array[i][j] = j > a && j < (a + y + 1);
             }
         }
         return array;

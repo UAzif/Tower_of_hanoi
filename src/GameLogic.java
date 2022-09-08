@@ -31,7 +31,7 @@ public class GameLogic {
     public Optional<String> move(int from, int to) {
         Optional<String> resultOfChecking = conditionCheckError(from, to, stacks);
         if (resultOfChecking.isPresent()) {
-            return Optional.of(resultOfChecking.get());
+            return resultOfChecking;
         } else {
             int storage = takeOffToHeap(stacks.get(1), stacks.get(2), stacks.get(3), from);
             addToHeap(stacks.get(1), stacks.get(2), stacks.get(3), to, storage);
@@ -49,6 +49,14 @@ public class GameLogic {
             return Optional.of("Вы нарушаете правило игры: большое кольцо ложите на малое кольцо");
         } else {
             return Optional.empty();
+        }
+    }
+
+    public String result() {
+        if (counter == (int) optNumbOfSteps) {
+            return "Отлично!!! Вы закончили игру за оптимальные " + counter + " шагов";
+        } else {
+            return " Вы закончили игру!!! Но сделали " + (counter - (int) optNumbOfSteps) + " лишних шагов";
         }
     }
 

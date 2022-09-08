@@ -5,7 +5,14 @@ public class GameStarter {
 
         Scanner scanner = new Scanner(System.in);
 
-        new ConsoleGame().start();
+        System.out.println("Начинаем");
+        System.out.println("Для запуска в оконном режиме введите Yes иначе игра будет запущена в консоли");
+        String var = scanner.nextLine();
+        if (var.equals("Yes")) {
+            new GUIGame().start();
+        } else {
+            new ConsoleGame().start();
+        }
     }
 }
 
